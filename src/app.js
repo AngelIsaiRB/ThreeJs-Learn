@@ -4,16 +4,29 @@ const container = document.querySelector("#game-container");
 // escene 
 
 const scene = new THREE.Scene();
-// scene.background = new THREE.Color("skyblue");
+scene.background = new THREE.Color("skyblue");
 
 // camera
 
-const camera = new THREE.PerspectiveCamera(
-    35, //campod e vision
-    container.clientWidth/container.clientHeight, // espect ratio
-    0.1,  // que tan seca se renderizan los objetos
-    1000,  // que tal lejos se renderizan los objetos
-);
+// const camera = new THREE.PerspectiveCamera(
+//     35, //campod e vision  (Field of View)  1-179
+//     container.clientWidth/container.clientHeight, // espect ratio
+//     0.1,  // que tan seca se renderizan los objetos
+//     1000,  // que tal lejos se renderizan los objetos
+// );
+
+const div=200;
+const camera = new THREE.OrthographicCamera(
+    container.clientWidth/div,
+    container.clientWidth/-div,
+    container.clientHeight/div,
+    container.clientHeight/-div,
+    0.1,
+    1000
+)
+// camera.zoom=2;
+// camera.updateProjectionMatrix();
+
 
 camera.position.set(0,0,15);
 
@@ -25,19 +38,21 @@ const material = new THREE.MeshBasicMaterial({
 const boxMesh = new THREE.Mesh(geometry, material);
 scene.add(boxMesh);
 
+// setTimeout(()=>{
+//     scene.remove(boxMesh);
+// },2000)
 
-// camera.lookAt(boxMesh.position);
 
 //  render  s
 const renderer = new THREE.WebGLRenderer({
     antialias:true,
-    alpha:true,
+   
     canvas:container
 });
 renderer.setSize(container.clientWidth, container.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
-// container.appendChild(renderer.domElement);
+
 
 const update=()=>{
     boxMesh.rotateX(0.01);
