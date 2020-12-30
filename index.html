@@ -7,9 +7,18 @@
         *{
             margin:0;
         }
-        #game-container{
-            widows: 100%;
+        body{
+            background-image: url("./src/assets/space.png");
+            object-fit: cover;
+        }
+        #container{
+            width:100%;
             height:100vh;
+            
+        }
+        #game-container{
+            width:100%;
+            height:100%;
             
         }
         canvas{
@@ -18,8 +27,8 @@
     </style>
 </head>
 <body>
-    <div id="game-container">
-       
+    <div id="container">
+       <canvas id="game-container"></canvas>
     </div>
     <script src="./node_modules/three/build/three.min.js"></script>
 
