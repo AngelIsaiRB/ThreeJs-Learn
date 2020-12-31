@@ -10,7 +10,7 @@ class App {
     // escene
 
     this.scene = new Scene1();
-    this.scene.background = new THREE.Color("skyblue");
+   
 
     // camera
 
@@ -26,16 +26,24 @@ class App {
     //  render  s
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
-
-      canvas: container,
     });
     this.renderer.setSize(container.clientWidth, container.clientHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.physicallyCorrectLights = true;
     this.renderer.outputEncoding = THREE.sRGBEncoding;
+    this.container.appendChild(this.renderer.domElement);
     this.render();
   }
+
+  onResize(){
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+        this.camera.updateProjectionMatrix();
+  }
+
+
   render(){
+      this.scene.update();
     this.renderer.render(this.scene, this.camera);
     this.renderer.setAnimationLoop(() => this.render());
   }
